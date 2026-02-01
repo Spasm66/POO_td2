@@ -51,7 +51,6 @@ public class SpriteRobot {
                 robot.move(target);
             });
             ptr.play();
-
         }
     }
 }

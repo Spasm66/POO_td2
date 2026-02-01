@@ -9,8 +9,8 @@ public class Main extends Application {
     public void start(Stage stage)  {
 
         // Create the robot curiosity
-        Position position = new Position(4,4);
-        Robot robot = new Robot("curiosity", position, 200, 2);
+        Robot robot = new Robot("curiosity", 200, 2);
+        robot.getPosition().translate(-4);
         SpriteRobot spriteRobot = new SpriteRobot(robot);
 
         // Display the window
@@ -22,7 +22,7 @@ public class Main extends Application {
             Position target = view.getPosition(e);
             if (robot.canMove(target)) {
                 spriteRobot.animateMove(target);
-                System.out.println("Moving robot " + robot.getName());
+                System.out.println("Moving robot " + robot.getName() + " power: " + robot.energy + "\tpos: " + target.getX() + "\t" + target.getY());
             } else {
                 System.out.println("Can not move robot " + robot.getName());
             }
