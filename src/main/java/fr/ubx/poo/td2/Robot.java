@@ -38,7 +38,6 @@ public class Robot extends Vehicle {
             count ++;
         }
         if (x != endX) {
-            System.out.println("ok_x");
             x += stepX;
             for (; x != (endX + stepX); x += stepX) {
                 path[count] = new Position(x, y);
@@ -46,7 +45,6 @@ public class Robot extends Vehicle {
             }
         }
         else if (y != endY) {
-            System.out.println("ok_y");
             y += stepY;
             for (; y != (endY + stepY); y += stepY) {
                 path[count] = new Position(x, y);
