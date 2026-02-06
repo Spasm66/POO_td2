@@ -1,11 +1,6 @@
 package fr.ubx.poo.td2;
 
-public class Robot {
-    final double cost;
-    String name;
-    Position position;
-    double energy;
-
+public class Robot extends Vehicle {
 
     public Robot(String name, double energy, double cost) {
         this.name = name;
@@ -14,38 +9,11 @@ public class Robot {
         this.cost = cost;
     }
 
-    public Position getPosition() {
-        return (this.position);
-    }
-    public String getName() {
-        return name;
-    }
-
-    // TODO
-    // Robot's range of action
-    int range() {
-        return (int)(energy / cost);
-    }
-
+    @Override
     // TODO
     // Manhattan distance between the robot and the target
     public int distance(Position target) {
         return (Math.abs(getPosition().getX() - target.getX()) + Math.abs(getPosition().getY() - target.getY()));
-    }
-
-    // TODO
-    // Can the robot move to the target position?
-    boolean canMove(Position target) {
-        return distance(target) <= range();
-    }
-
-    // TODO
-    // Actions to perform when the robot moves to the target: update the robot's coordinates, remaining energy, etc.
-    void move(Position target) {
-        if (canMove(target)) {
-            energy -= distance(target) * cost;
-            position.translate(target.getX() - position.getX(), target.getY() - position.getY());
-        }
     }
 
     // TODO

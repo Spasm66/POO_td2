@@ -25,4 +25,12 @@ public class Position {
         this.x += delta;
         this.y += delta;
     }
+
+    public boolean equals(Position comp) {
+        return (comp.getX() == this.getX() && comp.getY() == this.getY());
+    }
+    @Override
+    public int hashCode() {
+        return (getX() * getY());
+    }
 }
