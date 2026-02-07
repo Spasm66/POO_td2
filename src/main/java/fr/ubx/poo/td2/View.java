@@ -5,12 +5,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class View {
     private int width;
     private int height;
     private Pane pane;
     private Scene scene;
+    Set<Line[]> squares = new HashSet<>();
 
     public View(int width, int height) {
         this.pane = new Pane();
@@ -33,8 +37,37 @@ public class View {
             int y = ImageResource.size*j;
             Line line = new Line(0, y, ImageResource.size*width, y);
             line.getStrokeDashArray().addAll(2d, 5d);
-            line.setStroke(Color.GRAY);
+            line.setStroke(Color.GREY);
             pane.getChildren().add(line);
+        }
+    }
+
+    public void draw_case(int x, int y) {
+        int x_p = ImageResource.size*x;
+        int y_p = ImageResource.size*y;
+        Line[] square = new Line[4];
+        Line verti = new Line(x_p, y_p, x_p, y_p+ImageResource.size);
+        Line hori = new Line(x_p, y_p, x_p+ImageResource.size, y_p);
+        Line verti_ = new Line(x_p+ImageResource.size, y_p, x_p+ImageResource.size, y_p+ImageResource.size);
+        Line hori_ = new Line(x_p, y_p+ImageResource.size, x_p+ImageResource.size, y_p+ImageResource.size);
+        square[0] = hori;
+        square[1] = verti;
+        square[2] = hori_;
+        square[3] = verti_;
+        for (int i = 0; i < 4; i++) {
+            square[i].setStroke(Color.RED);
+            square[i].getStrokeDashArray().addAll(2d, 5d);
+            pane.getChildren().add(square[i]);
+        }
+        squares.add(square);
+    }
+
+    public void clear_cases() {
+        Iterator<Line[]> it = squares.iterator();
+        while (it.hasNext()) {
+            Line[] square = it.next();
+            for (int i = 0; i < 4; i++)
+                pane.getChildren().remove(square[i]);
         }
     }
 

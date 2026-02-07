@@ -1,17 +1,18 @@
 package fr.ubx.poo.td2;
 
 import javafx.application.Application;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-
 import java.util.HashSet;
 import java.util.Set;
 
 public class Main extends Application {
-    private boolean ctrlPressed = false;
 
     @Override
     public void start(Stage stage) {
         int l = 4;
+        Line square;
+        square = null;
         Robot robot1 = new Robot("Curiosity", 20000, 2);
         Robot robot2 = new Robot("Opportunity", 20000, 2);
         Drone drone1 = new Drone("Ingenuity", 1000, 1);
@@ -33,28 +34,19 @@ public class Main extends Application {
         view.getPane().requestFocus();
         view.getPane().setFocusTraversable(true);
 
-        // Gestion du CTRL
-        view.getPane().setOnKeyPressed(k -> {
-            if (k.isControlDown()) {
-                cur_sprites.clear();
-                ctrlPressed = true;
-            }
-        });
-        view.getPane().setOnKeyReleased(k -> {
-            if (!k.isControlDown()) {
-                ctrlPressed = false;
-            }
-        });
+
 
         // Un seul listener pour la souris
         view.getPane().setOnMouseClicked(e -> {
             Position target = view.getPosition(e);
-            if (ctrlPressed) {
+            boolean isCtrlClick = e.isControlDown();
+            if (isCtrlClick) {
                 // Sélection
                 for (Sprite s : sprites) {
                     if (s.vehi.getPosition().equals(target)) {
                         System.out.println(s.vehi);
                         cur_sprites.add(s);
+                        view.draw_case(target.x, target.y);
                     }
                 }
             } else {
@@ -67,6 +59,8 @@ public class Main extends Application {
                         System.out.println("Can not move robot " + cs.vehi.getName());
                     }
                 }
+                cur_sprites.clear();
+                view.clear_cases();
             }
         });
 
@@ -76,3 +70,5 @@ public class Main extends Application {
 
     public static void main(String[] args) { launch(); }
 }
+
+
