@@ -71,6 +71,20 @@ public class View {
         }
     }
 
+    public void clear_case(int x, int y) {
+        int x_p = x*ImageResource.size;
+        int y_p = y*ImageResource.size;
+        Iterator<Line[]> it = squares.iterator();
+        while (it.hasNext()) {
+            Line[] square = it.next();
+            if (square[0].getStartX() == x_p && square[1].getStartY() == y_p) {
+                for (int i = 0; i < 4; i++) {
+                    pane.getChildren().remove(square[i]);
+                }
+            }
+        }
+    }
+
     /* Returns the position of the mouse in the grid */
     public Position getPosition(MouseEvent e) {
         int x = (int) e.getX() / ImageResource.size;

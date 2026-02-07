@@ -45,8 +45,12 @@ public class Main extends Application {
                 for (Sprite s : sprites) {
                     if (s.vehi.getPosition().equals(target)) {
                         System.out.println(s.vehi);
-                        cur_sprites.add(s);
-                        view.draw_case(target.x, target.y);
+                        if (!cur_sprites.add(s)) {
+                            view.clear_case(target.x, target.y);
+                            cur_sprites.remove(s);
+                        }
+                        else
+                            view.draw_case(target.x, target.y);
                     }
                 }
             } else {
