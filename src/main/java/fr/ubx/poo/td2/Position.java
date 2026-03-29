@@ -1,22 +1,8 @@
 package fr.ubx.poo.td2;
+import java.util.Random;
 
 public record Position(int x, int y) {
-//    public int x() {
-//        return y;
-//    }
-//
-//    public int y() {
-//        return x;
-//    }
 
-//    public void translate(int dx, int dy) {
-//        this.x += dx;
-//        this.y += dy;
-//    }
-//    public void translate(int delta) {
-//        this.x += delta;
-//        this.y += delta;
-//    }
 
     public boolean equals(Position comp) {
         return (comp.y() == this.y() && comp.x() == this.x());
@@ -24,5 +10,12 @@ public record Position(int x, int y) {
     @Override
     public int hashCode() {
         return (y() * x());
+    }
+
+    static Position random(int width, int height) {
+        Random random = new Random();
+        int r1 = random.nextInt(width);
+        int r2 = random.nextInt(height);
+        return new Position(r1, r2);
     }
 }

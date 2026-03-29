@@ -12,6 +12,15 @@ import javafx.util.Duration;
 public abstract class SpriteVehicle extends Sprite {
     public Vehicle vehi;
 
+    Position last_pos(Position[] tab) {
+        Position res = vehi.getPosition();
+        for (Position pos : tab) {
+            if (pos == null)
+                break;
+            res = pos;
+        }
+        return res;
+    }
     public void animateMove(Position target) {
         // Make the path movement
         Position[] positionPath = vehi.getPathTo(target);
@@ -20,12 +29,14 @@ public abstract class SpriteVehicle extends Sprite {
             updateLocation(target);
             vehi.move(target);
         } else {
+
             Path path = new Path();
 
             path.getElements().add(new MoveTo(vehi.position.x() * ImageResource.size + ImageResource.size / 2,
                     vehi.position.y() * ImageResource.size + ImageResource.size / 2));
             for (Position pos : positionPath) {
-                path.getElements().add(new LineTo(pos.x() * ImageResource.size + ImageResource.size / 2, pos.y() * ImageResource.size + ImageResource.size / 2));
+                if (pos != null)
+                    path.getElements().add(new LineTo(pos.x() * ImageResource.size + ImageResource.size / 2, pos.y() * ImageResource.size + ImageResource.size / 2));
             }
 
             PathTransition ptr = new PathTransition();
@@ -34,7 +45,7 @@ public abstract class SpriteVehicle extends Sprite {
             ptr.setNode(getImg());
 
             ptr.setOnFinished(e -> {
-                vehi.move(target);
+                vehi.move(last_pos(positionPath));
             });
             ptr.play();
         }

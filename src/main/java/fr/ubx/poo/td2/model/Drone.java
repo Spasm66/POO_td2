@@ -1,6 +1,7 @@
 package fr.ubx.poo.td2.model;
 
 import fr.ubx.poo.td2.Position;
+import fr.ubx.poo.td2.World;
 
 public class Drone extends Vehicle {
 
